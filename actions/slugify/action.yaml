@@ -5,11 +5,17 @@ inputs:
   path:
     description: The path to slugify
     required: true
+  prefix:
+    description: Optional prefix to prepend to the slug
+    default: ""
+  suffix:
+    description: Optional suffix to append to the slug
+    default: ""
 
 outputs:
   slug:
     description: The slugified path
-    value: ${{ steps.slug.outputs.slug }}
+    value: ${{ inputs.prefix }}${{ steps.slug.outputs.slug }}${{ inputs.suffix }}
 
 runs:
   using: composite
@@ -17,4 +23,4 @@ runs:
     - name: Run script
       id: slug
       shell: bash
-      run: ${{ github.action_path }}/script.sh
+      run: ${{ github.action_path }}/script.sh ${{ inputs.path }}
