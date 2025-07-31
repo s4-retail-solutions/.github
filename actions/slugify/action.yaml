@@ -1,0 +1,20 @@
+name: slugify
+description: Slugify a given path to use as an identifier
+
+inputs:
+  path:
+    description: The path to slugify
+    required: true
+
+outputs:
+  slug:
+    description: The slugified path
+    value: ${{ steps.slug.outputs.slug }}
+
+runs:
+  using: composite
+  steps:
+    - name: Run script
+      id: slug
+      shell: bash
+      run: ${{ github.action_path }}/script.sh
